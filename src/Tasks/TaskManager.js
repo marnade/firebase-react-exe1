@@ -14,9 +14,23 @@ function TaskManager() {
       collection(db, "tasks"),
       orderBy("created", "desc")
     );
-    onSnapshot(taskColRef);
+    onSnapshot(taskColRef, (snapshot) => {
+      let liste = [];
+      console.log(snapshot);
+      console.log(snapshot.docs);
+      snapshot.docs.map((doc) => {
+        console.log('hey');
+        liste.push({
+          id: doc.id,
+          data: doc.data()
+        });
+      });
+      setTasks(liste);
+    });
+    //getDocs(taskColRef);
+    // console.log(taskColRef);
   }, []);
-
+  // console.log(tasks);
   return (
     <div className="taskManager">
       <header>Task Manager</header>
